@@ -19,12 +19,14 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module CPU(
-    );
+	);
 	
 	Control Control (
 	);
 	
 	DataPath DataPath (
+		.clock(StepButton),
+		.reset(ResetButton)
 	);
 	
 endmodule

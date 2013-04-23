@@ -24,8 +24,6 @@ module Stage_ID(
 	
 	input wire [31:0] BeginStageID_Inst,
 	input wire [31:0] BeginStageID_NewPC,
-	input wire [3:0] BeginStageID_InstNum,
-	input wire [3:0] BeginStageID_InstType,
 	
 	output wire [4:0] RegAdd_rs,
 	output wire [4:0] RegAdd_rt,
@@ -37,15 +35,14 @@ module Stage_ID(
 	output wire [31:0] EndStageID_NewPC,
 	output reg [31:0] EndStageID_RegDataA,
 	output reg [31:0] EndStageID_RegDataB,
-	output wire [31:0] EndStageID_Imm,
-	output wire [3:0] EndStageID_InstNum,
-	output wire [3:0] EndStageID_InstType
+	output wire [31:0] EndStageID_Imm
 	);
 	
 	assign EndStageID_Inst = BeginStageID_Inst;
 	assign EndStageID_NewPC = BeginStageID_NewPC;
-	assign EndStageID_InstNum = BeginStageID_InstNum;
-	assign EndStageID_InstType = BeginStageID_InstType;
+	
+	assign RegAdd_rs = BeginStageID_Inst[31:26];
+	assign RegAdd_rt = BeginStageID_Inst[25:21];
 	
 	assign EndStageID_RegDataA = RegData_rs;
 	assign EndStageID_RegDataB = RegData_rt;
