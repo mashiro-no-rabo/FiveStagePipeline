@@ -29,9 +29,9 @@ module Stage_IF(
 	input wire CS_Branch,
 	
 	output wire [31:0] EndStageIF_PC,
-	output wire [31:0] EndStageIF_PC4,
+	output wire [31:0] EndStageIF_NewPC,
 	output wire [31:0] EndStageIF_Inst,
-	output wire [3:0] EndStageIF_InstNum,
+	output reg [3:0] EndStageIF_InstNum,
 	output wire [3:0] EndStageIF_InstType
     );
 	
@@ -48,8 +48,9 @@ module Stage_IF(
 	
 	assign EndStageIF_PC4 = pc + 1;
 	assign StageIF_PC = CS_Branch ? PR_EXMEM_ALUOutput : StageIF_PC4;
+	assign EndStageIF_InstType = `INST_TYPE_NONE;
 	
 	always @ (posedge clock) begin
-		
+		EndStageIF_InstNum = EndStageIF_InstNum + 1;
 	end
 endmodule

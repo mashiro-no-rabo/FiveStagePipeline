@@ -20,6 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 module PipelineReg_IFID(
 	input wire clock,
+	input wire reset,
 	input wire [31:0] FromIF_Inst,
 	input wire [31:0] FromIF_NewPC,
 	input wire [3:0]  FromIF_InstNum,
@@ -30,11 +31,15 @@ module PipelineReg_IFID(
 	output reg [3:0]  ToID_InstType
     );
 
-	always @ (posedge clock) begin
-		ToID_Inst <= FromIF_Inst;
-		ToID_NewPC <= FromIF_NewPC;
-		ToID_InstNum <= FromIF_InstNum;
-		ToID_InstType <= FromIF_InstType;
+	always @ (posedge clock or posedge reset) begin
+		if (reset == 1) begin
+		end
+		else begin
+			ToID_Inst <= FromIF_Inst;
+			ToID_NewPC <= FromIF_NewPC;
+			ToID_InstNum <= FromIF_InstNum;
+			ToID_InstType <= FromIF_InstType;
+		end
 	end
 
 endmodule
