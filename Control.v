@@ -51,8 +51,44 @@ module Control(
 	assign PR_IFID_Inst_opcode = PR_IFID_Inst[31:26];
 	assign PR_IFID_Inst_rs = PR_IFID_Inst[25:21];
 	assign PR_IFID_Inst_rt = PR_IFID_Inst[20:16];
-	assign PR_IFID_Inst = PR_IFID_Inst[15:11];
-	assign PR_IFID_Inst = PR_IFID_Inst[5:0];
+	assign PR_IFID_Inst_rd = PR_IFID_Inst[15:11];
+	assign PR_IFID_Inst_func = PR_IFID_Inst[5:0];
+	
+	wire [5:0] PR_IDEX_Inst_opcode;
+	wire [4:0] PR_IDEX_Inst_rs;
+	wire [4:0] PR_IDEX_Inst_rt;
+	wire [4:0] PR_IDEX_Inst_rd;
+	wire [5:0] PR_IDEX_Inst_func;
+	
+	assign PR_IDEX_Inst_opcode = PR_IDEX_Inst[31:26];
+	assign PR_IDEX_Inst_rs = PR_IDEX_Inst[25:21];
+	assign PR_IDEX_Inst_rt = PR_IDEX_Inst[20:16];
+	assign PR_IDEX_Inst_rd = PR_IDEX_Inst[15:11];
+	assign PR_IDEX_Inst_func = PR_IDEX_Inst[5:0];
+	
+	wire [5:0] PR_EXMEM_Inst_opcode;
+	wire [4:0] PR_EXMEM_Inst_rs;
+	wire [4:0] PR_EXMEM_Inst_rt;
+	wire [4:0] PR_EXMEM_Inst_rd;
+	wire [5:0] PR_EXMEM_Inst_func;
+	
+	assign PR_EXMEM_Inst_opcode = PR_EXMEM_Inst[31:26];
+	assign PR_EXMEM_Inst_rs = PR_EXMEM_Inst[25:21];
+	assign PR_EXMEM_Inst_rt = PR_EXMEM_Inst[20:16];
+	assign PR_EXMEM_Inst_rd = PR_EXMEM_Inst[15:11];
+	assign PR_EXMEM_Inst_func = PR_EXMEM_Inst[5:0];
+	
+	wire [5:0] PR_MEMWB_Inst_opcode;
+	wire [4:0] PR_MEMWB_Inst_rs;
+	wire [4:0] PR_MEMWB_Inst_rt;
+	wire [4:0] PR_MEMWB_Inst_rd;
+	wire [5:0] PR_MEMWB_Inst_func;
+	
+	assign PR_MEMWB_Inst_opcode = PR_MEMWB_Inst[31:26];
+	assign PR_MEMWB_Inst_rs = PR_MEMWB_Inst[25:21];
+	assign PR_MEMWB_Inst_rt = PR_MEMWB_Inst[20:16];
+	assign PR_MEMWB_Inst_rd = PR_MEMWB_Inst[15:11];
+	assign PR_MEMWB_Inst_func = PR_MEMWB_Inst[5:0];
 	
 	// need rewrite! use each stage's inst
 	assign CS_Branch = (Inst_opcode == `OP_BEQ) ? 1 : 0;
