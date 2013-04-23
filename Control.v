@@ -40,9 +40,15 @@ module Control(
 	output wire CS_Shift,
 	output wire CS_UseImm
 	
-    );
+	);
 	
-	wire [5:0] PR_IFID_Inst_opcode;
+	`define Inst_opcode(Inst) Inst[31:26]
+	`define Inst_rs(Inst) Inst[25:21]
+	`define Inst_rt(Inst) Inst[20:16]
+	`define Inst_rd(Inst) Inst[15:11]
+	`define Inst_func(Inst) Inst[5:0]
+	
+	/*wire [5:0] PR_IFID_Inst_opcode;
 	wire [4:0] PR_IFID_Inst_rs;
 	wire [4:0] PR_IFID_Inst_rt;
 	wire [4:0] PR_IFID_Inst_rd;
@@ -88,15 +94,15 @@ module Control(
 	assign PR_MEMWB_Inst_rs = PR_MEMWB_Inst[25:21];
 	assign PR_MEMWB_Inst_rt = PR_MEMWB_Inst[20:16];
 	assign PR_MEMWB_Inst_rd = PR_MEMWB_Inst[15:11];
-	assign PR_MEMWB_Inst_func = PR_MEMWB_Inst[5:0];
+	assign PR_MEMWB_Inst_func = PR_MEMWB_Inst[5:0];*/
 	
 	// need rewrite! use each stage's inst
-	assign CS_Branch = (Inst_opcode == `OP_BEQ) ? 1 : 0;
-	assign CS_UseRT = (Inst_opcode == `OP_ALUOP) ? 0 : 1;
-	assign CS_NeedSignExtend = (Inst_opcode == `OP_ALUOP) ? 0 : 1;
-	assign CS_RegWrite = ((Inst_opcode == `OP_ALUOP) || (Inst_opcode == `OP_LW)) ? 1 : 0;
-	assign CS_MemToReg = (Inst_opcode == `OP_LW) ? 1 : 0;
-	assign CS_MemWrite = (Inst_opcode == `OP_SW) ? 1 : 0;
-	assign CS_Shift = ((Inst_opcode == `OP_ALUOP) && (func[5:2] == 4'b0)) ? 1 : 0;
-	assign CS_UseImm = ((Inst_opcode == `OP_ALUOP) || (Inst_opcode == `OP_BEQ)) ? 0 : 1;
+	assign CS_Branch = (Inst_opcode(PR_EXMEM_Inst) == `OP_BEQ) ? 1 : 0;
+//	assign CS_UseRT = (Inst_opcode == `OP_ALUOP) ? 0 : 1;
+//	assign CS_NeedSignExtend = (Inst_opcode == `OP_ALUOP) ? 0 : 1;
+//	assign CS_RegWrite = ((Inst_opcode == `OP_ALUOP) || (Inst_opcode == `OP_LW)) ? 1 : 0;
+//	assign CS_MemToReg = (Inst_opcode == `OP_LW) ? 1 : 0;
+//	assign CS_MemWrite = (Inst_opcode == `OP_SW) ? 1 : 0;
+//	assign CS_Shift = ((Inst_opcode == `OP_ALUOP) && (func[5:2] == 4'b0)) ? 1 : 0;
+//	assign CS_UseImm = ((Inst_opcode == `OP_ALUOP) || (Inst_opcode == `OP_BEQ)) ? 0 : 1;
 endmodule
