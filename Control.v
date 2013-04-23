@@ -107,7 +107,7 @@ module Control(
 	assign CS_UseImm = ((Inst_opcode(PR_IDEX_Inst) == `OP_ALUOP) || (Inst_opcode(PR_IDEX_Inst) == `OP_BEQ)) ? 0 : 1;
 	
 	always @ (PR_IDEX_Inst) begin
-		case (Inst_opcode(PR_IDEX_Inst)) begin
+		case (Inst_opcode(PR_IDEX_Inst))
 			`OP_ADDI: begin
 				CS_ALUOP <= `ALU_ADD;
 			end
@@ -118,7 +118,7 @@ module Control(
 				CS_ALUOP <= `ALU_OR;
 			end
 			`OP_ALUOP: begin
-				case (Inst_func(PR_IDEX_Inst)) begin
+				case (Inst_func(PR_IDEX_Inst))
 					`FUNC_ADD: begin
 						CS_ALUOP <= `ALU_ADD;
 					end
@@ -149,6 +149,7 @@ module Control(
 					default: begin
 					end
 				endcase
+			end
 			default: begin
 			end
 		endcase
