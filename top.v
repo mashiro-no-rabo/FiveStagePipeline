@@ -54,53 +54,16 @@ module top(
 		.DebouncedButton(ResetButton)
 	);
 	
-	wire [31:0] PR_EXMEM_ALUOutput;
-	
-	// Wire up stages and pipeline registers
-	Stage_IF Stage_IF(
-		.clock(StepButton),
-		.reset(ResetButton),
-		.PR_EXMEM_ALUOutput(PR_EXMEM_ALUOutput),
-		.CS_Branch(CS_Branch),
-		
-		.EndStageIF_PC(EndStageIF_PC),
-		.EndStageIF_PC4(EndStageIF_PC4),
-		.EndStageIF_Inst(EndStageIF_Inst),
-		.EndStageIF_InstNum(EndStageIF_InstNum),
-		.EndStageIF_InstType(EndStageIF_InstType)
+	// wire up memories
+	InstMemory InstMemory(
+		.a(pc[7:0]),
+		.spo(StageIF_Inst)
 	);
 	
-	PipelineReg_IFID PipelineReg_IFID(
-		.clock(StepButton),
-		.FromIF_Inst(EndStageIF_Inst),
-		.FromIF_NewPC(),
-		.FromIF_InstNum(EndStageIF_InstNum),
-		.FromIF_InstType(EndStageIF_InstType),
-		.ToID_Inst(ToID_Inst),
-		.ToID_NewPC(ToID_NewPC),
-		.ToID_InstNum(ToID_InstNum),
-		.ToID_InstType(ToID_InstType)
-	);
+	// data memory
 	
-	Stage_ID Stage_ID(
-	);
+	// wire up CPU
 	
-	PipelineReg_IDEX PipelineReg_IDEX(
+	CPU CPU (
 	);
-	
-	Stage_EX Stage_EX(
-	);
-	
-	PipelineReg_EXMEM PipelineReg_EXMEM(
-	);
-	
-	Stage_MEM Stage_MEM(
-	);
-	
-	PipelineReg_MEMWB PipelineReg_MEMWB(
-	);
-	
-	Stage_WB Stage_WB(
-	);
-	
 endmodule

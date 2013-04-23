@@ -98,11 +98,60 @@ module Control(
 	
 	// need rewrite! use each stage's inst
 	assign CS_Branch = (Inst_opcode(PR_EXMEM_Inst) == `OP_BEQ) ? 1 : 0;
-//	assign CS_UseRT = (Inst_opcode == `OP_ALUOP) ? 0 : 1;
+	assign CS_UseRT = (Inst_opcode(PR_IDEXE_Inst) == `OP_ALUOP) ? 0 : 1;
 //	assign CS_NeedSignExtend = (Inst_opcode == `OP_ALUOP) ? 0 : 1;
-//	assign CS_RegWrite = ((Inst_opcode == `OP_ALUOP) || (Inst_opcode == `OP_LW)) ? 1 : 0;
-//	assign CS_MemToReg = (Inst_opcode == `OP_LW) ? 1 : 0;
-//	assign CS_MemWrite = (Inst_opcode == `OP_SW) ? 1 : 0;
-//	assign CS_Shift = ((Inst_opcode == `OP_ALUOP) && (func[5:2] == 4'b0)) ? 1 : 0;
-//	assign CS_UseImm = ((Inst_opcode == `OP_ALUOP) || (Inst_opcode == `OP_BEQ)) ? 0 : 1;
+	assign CS_RegWrite = ((Inst_opcode(PR_MEMWB_Inst) == `OP_ALUOP) || (Inst_opcode(PR_MEMWB_Inst) == `OP_LW)) ? 1 : 0;
+	assign CS_MemToReg = (Inst_opcode(PR_MEMWB_Inst) == `OP_LW) ? 1 : 0; //PR_EXMEM?
+	assign CS_MemWrite = (Inst_opcode(PR_EXMEM_Inst) == `OP_SW) ? 1 : 0;
+	assign CS_Shift = ((Inst_opcode(PR_IDEX_Inst) == `OP_ALUOP) && (PR_IDEX_Inst[5:2] == 4'b0)) ? 1 : 0;
+	assign CS_UseImm = ((Inst_opcode(PR_IDEX_Inst) == `OP_ALUOP) || (Inst_opcode(PR_IDEX_Inst) == `OP_BEQ)) ? 0 : 1;
+	
+	always @ (PR_IDEX_Inst) begin
+		case (Inst_opcode(PR_IDEX_Inst)) begin
+			`OP_ADDI: begin
+				CS_ALUOP <= `ALU_ADD;
+			end
+			`OP_ANDI: begin
+				CS_ALUOP <= `ALU_AND;
+			end
+			`OP_ORI: begin
+				CS_ALUOP <= `ALU_OR;
+			end
+			`OP_ALUOP: begin
+				case (Inst_func(PR_IDEX_Inst)) begin
+					`FUNC_ADD: begin
+						CS_ALUOP <= `ALU_ADD;
+					end
+					`FUNC_SUB: begin
+						CS_ALUOP <= `ALU_SUB;
+					end
+					`FUNC_AND: begin
+						CS_ALUOP <= `ALU_AND;
+					end
+					`FUNC_OR: begin
+						CS_ALUOP <= `ALU_OR;
+					end
+					`FUNC_NOR: begin
+						CS_ALUOP <= `ALU_NOR;
+					end
+					`FUNC_SLT: begin
+						CS_ALUOP <= `ALU_SLT;
+					end
+					`FUNC_SLL: begin
+						CS_ALUOP <= `ALU_SLL;
+					end
+					`FUNC_SRL: begin
+						CS_ALUOP <= `ALU_SRL;
+					end
+					`FUNC_SRA: begin
+						CS_ALUOP <= `ALU_SRA;
+					end
+					default: begin
+					end
+				endcase
+			default: begin
+			end
+		endcase
+ 	end
+	
 endmodule

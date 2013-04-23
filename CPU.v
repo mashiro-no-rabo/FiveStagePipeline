@@ -3,9 +3,9 @@
 // Company:        Team.TeaWhen
 // Engineer:       AquarHEAD L.
 // 
-// Create Date:    18:40:46 04/22/2013 
+// Create Date:    16:27:38 04/23/2013 
 // Design Name: 
-// Module Name:    Stage_ID 
+// Module Name:    CPU 
 // Project Name:   Five Stage Pipeline CPU
 // Target Devices: Spartan3E Starter Kit
 // Tool versions:  Xilinx ISE 14.1
@@ -18,6 +18,13 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module Stage_ID(
+module CPU(
     );
+	
+	Control Control (
+	);
+	
+	DataPath DataPath (
+	);
+	
 endmodule

@@ -39,10 +39,6 @@ module Stage_IF(
 	
 	wire [31:0] StageIF_PC4;
 	
-	InstMemory InstMemory(
-		.a(pc[7:0]),
-		.spo(StageIF_Inst)
-	);
 	
 	initial begin
 		pc[31:0] = 32'hffffffff;
