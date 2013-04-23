@@ -120,11 +120,40 @@ module DataPath(
 	wire [3:0] StageEX_InstType;
 	
 	Stage_EX Stage_EX(
+		.BeginStageEX_Inst(ToEX_Inst),
+		.BeginStageEX_NewPC(ToEX_NewPC),
+		.BeginStageEX_RegDataA(ToEX_RegDataA),
+		.BeginStageEX_RegDataB(ToEX_RegDataB),
+		.BeginStageEX_Imm(ToEX_Imm),
+		
+		.EndStageEX_Inst(FromEX_Inst),
+		.EndStageEX_NewPC(FromEX_NewPC),
+		.EndStageEX_RegDataA(FromEX_RegDataA),
+		.EndStageEX_RegDataB(FromEX_RegDataB),
+		.EndStageEX_Imm(FromEX_Imm),
+		.EndStageEX_ALUOutput(FromEX_ALUOutput),
+		.EndStageEX_Cond(FromEX_Cond)
 	);
 	
 	PipelineReg_EXMEM PipelineReg_EXMEM(
 		.clock(clock),
 		.reset(reset),
+		
+		.FromEX_Inst(FromEX_Inst),
+		.FromEX_NewPC(FromEX_NewPC),
+		.FromEX_RegDataA(FromEX_RegDataA),
+		.FromEX_RegDataB(FromEX_RegDataB),
+		.FromEX_Imm(FromEX_Imm),
+		.FromEX_ALUOutput(FromEX_ALUOutput),
+		.FromEX_Cond(FromEX_Cond),
+		
+		.ToMEM_Inst(ToMEM_Inst),
+		.ToMEM_NewPC(ToMEM_NewPC),
+		.ToMEM_RegDataA(ToMEM_RegDataA),
+		.ToMEM_RegDataB(ToMEM_RegDataB),
+		.ToMEM_Imm(ToMEM_Imm),
+		.ToMEM_ALUOutput(ToMEM_ALUOutput),
+		.ToMEM_Cond(ToMEM_Cond)
 	);
 	
 	Stage_MEM Stage_MEM(

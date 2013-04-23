@@ -32,7 +32,8 @@ module Stage_EX(
 	output wire [31:0] EndStageEX_RegDataA,
 	output wire [31:0] EndStageEX_RegDataB,
 	output wire [31:0] EndStageEX_Imm,
-	output wire [31:0] EndStageEX_ALUOutput
+	output wire [31:0] EndStageEX_ALUOutput,
+	output wire EndStageEX_Cond
 	
 	);
 	
