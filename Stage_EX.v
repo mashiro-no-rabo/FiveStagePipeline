@@ -19,9 +19,28 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module Stage_EX(
-    );
+	input wire [3:0] CS_ALUOP,
+	
+	input wire [31:0] BeginStageEX_Inst,
+	input wire [31:0] BeginStageEX_NewPC,
+	input wire [31:0] BeginStageEX_RegDataA,
+	input wire [31:0] BeginStageEX_RegDataB,
+	input wire [31:0] BeginStageEX_Imm,
+	
+	output wire [31:0] EndStageEX_Inst,
+	output wire [31:0] EndStageEX_NewPC,
+	output wire [31:0] EndStageEX_RegDataA,
+	output wire [31:0] EndStageEX_RegDataB,
+	output wire [31:0] EndStageEX_Imm,
+	output wire [31:0] EndStageEX_ALUOutput
+	
+	);
 	
 	ALU ALU(
+		.A(BeginStageEX_RegDataA),
+		.B(BeginStageEX_RegDataB),
+		.ALUOP(CS_ALUOP),
+		.result(EndStageEX_ALUOutput)
 	);
 	
 endmodule

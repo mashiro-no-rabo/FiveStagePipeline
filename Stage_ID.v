@@ -33,8 +33,8 @@ module Stage_ID(
 	
 	output wire [31:0] EndStageID_Inst,
 	output wire [31:0] EndStageID_NewPC,
-	output reg [31:0] EndStageID_RegDataA,
-	output reg [31:0] EndStageID_RegDataB,
+	output wire [31:0] EndStageID_RegDataA,
+	output wire [31:0] EndStageID_RegDataB,
 	output wire [31:0] EndStageID_Imm
 	);
 	

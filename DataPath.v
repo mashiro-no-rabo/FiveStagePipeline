@@ -73,7 +73,7 @@ module DataPath(
 		.ToID_InstType(StageID_InstType)
 	);
 	
-	// Wires not changing
+	// Wire registers not changing directly
 	wire [3:0] StageID_InstNum;
 	wire [3:0] StageID_InstType;
 	
@@ -112,14 +112,19 @@ module DataPath(
 		.ToEX_RegDataA(ToEX_RegDataA),
 		.ToEX_RegDataB(ToEX_RegDataB),
 		.ToEX_Imm(ToEX_Imm),
-		.ToEX_InstNum(ToEX_InstNum),
-		.ToEX_InstType(ToEX_InstType)
+		.ToEX_InstNum(StageEX_InstNum),
+		.ToEX_InstType(StageEX_InstType)
 	);
+	
+	wire [3:0] StageEX_InstNum;
+	wire [3:0] StageEX_InstType;
 	
 	Stage_EX Stage_EX(
 	);
 	
 	PipelineReg_EXMEM PipelineReg_EXMEM(
+		.clock(clock),
+		.reset(reset),
 	);
 	
 	Stage_MEM Stage_MEM(
