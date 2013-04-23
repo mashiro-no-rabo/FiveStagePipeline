@@ -25,7 +25,10 @@ module Control(
 	input wire clock,
 	input wire reset,
 	
-	input wire [31:0] Inst,
+	input wire [31:0] PR_IFID_Inst,
+	input wire [31:0] PR_IDEX_Inst,
+	input wire [31:0] PR_EXMEM_Inst,
+	input wire [31:0] PR_MEMWB_Inst,
 	
 	output wire CS_Branch,
 	output wire CS_UseRT,
@@ -39,19 +42,25 @@ module Control(
 	
     );
 	
-	wire [5:0] Inst_opcode;
-	wire [4:0] Inst_rs;
-	wire [4:0] Inst_rt;
-	wire [4:0] Inst_rd;
-	wire [5:0] Inst_func;
+	wire [5:0] PR_IFID_Inst_opcode;
+	wire [4:0] PR_IFID_Inst_rs;
+	wire [4:0] PR_IFID_Inst_rt;
+	wire [4:0] PR_IFID_Inst_rd;
+	wire [5:0] PR_IFID_Inst_func;
 	
-	assign Inst_opcode = Inst[31:26];
-	assign Inst_rs = Inst[25:21];
-	assign Inst_rt = Inst[20:16];
-	assign Inst_rd = Inst[15:11];
-	assign Inst_func = Inst[5:0];
+	assign PR_IFID_Inst_opcode = PR_IFID_Inst[31:26];
+	assign PR_IFID_Inst_rs = PR_IFID_Inst[25:21];
+	assign PR_IFID_Inst_rt = PR_IFID_Inst[20:16];
+	assign PR_IFID_Inst = PR_IFID_Inst[15:11];
+	assign PR_IFID_Inst = PR_IFID_Inst[5:0];
 	
-	
+	// need rewrite! use each stage's inst
 	assign CS_Branch = (Inst_opcode == `OP_BEQ) ? 1 : 0;
 	assign CS_UseRT = (Inst_opcode == `OP_ALUOP) ? 0 : 1;
+	assign CS_NeedSignExtend = (Inst_opcode == `OP_ALUOP) ? 0 : 1;
+	assign CS_RegWrite = ((Inst_opcode == `OP_ALUOP) || (Inst_opcode == `OP_LW)) ? 1 : 0;
+	assign CS_MemToReg = (Inst_opcode == `OP_LW) ? 1 : 0;
+	assign CS_MemWrite = (Inst_opcode == `OP_SW) ? 1 : 0;
+	assign CS_Shift = ((Inst_opcode == `OP_ALUOP) && (func[5:2] == 4'b0)) ? 1 : 0;
+	assign CS_UseImm = ((Inst_opcode == `OP_ALUOP) || (Inst_opcode == `OP_BEQ)) ? 0 : 1;
 endmodule
