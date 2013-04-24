@@ -39,7 +39,7 @@ module Stage_EX(
 	
 	ALU ALU(
 		.A(BeginStageEX_RegDataA),
-		.B(BeginStageEX_RegDataB),
+		.B(),
 		.ALUOP(CS_ALUOP),
 		.result(EndStageEX_ALUOutput)
 	);
