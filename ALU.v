@@ -18,10 +18,13 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
+
+`include "ALUOP.vh"
+
 module ALU(
     input wire [31:0] A,
     input wire [31:0] B,
-    input wire [2:0]  ALUOP,
+    input wire [3:0]  ALUOP,
     output reg [31:0] result,
     output wire zero,
     output wire overflow

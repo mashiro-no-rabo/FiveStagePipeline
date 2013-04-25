@@ -19,7 +19,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-`include "Definitions.vh"
+`include "MIPS32_Instruction_Set.vh"
+`include "DisplayData.vh"
 
 module Stage_IF(
     input wire clock,
