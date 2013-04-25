@@ -19,7 +19,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-`include "MIPS32_Instruction_Set.vh"
+`include "includes/MIPS32_Instruction_Set.vh"
+`include "includes/ALUOP.vh"
 
 module Control(
     input wire clock,
@@ -31,6 +32,7 @@ module Control(
     input wire [31:0] PR_MEMWB_Inst,
     
     output wire CS_Branch,
+    output wire CS_CanOverflow,
     output wire CS_UseRT,
     output wire CS_NeedSignExtend,
     output wire CS_RegWrite,
@@ -49,6 +51,7 @@ module Control(
     `define Inst_func(Inst) Inst[5:0]
     
     assign CS_Branch = (Inst_opcode(PR_EXMEM_Inst) == `OP_BEQ) ? 1 : 0;
+    //assign CS_CanOverflow = ;
     assign CS_UseRT = (Inst_opcode(PR_IDEXE_Inst) == `OP_ALUOP) ? 0 : 1;
     assign CS_NeedSignExtend = (Inst_opcode == `OP_ALUOP) ? 0 : 1;
     assign CS_RegWrite = ((Inst_opcode(PR_MEMWB_Inst) == `OP_ALUOP) || (Inst_opcode(PR_MEMWB_Inst) == `OP_LW)) ? 1 : 0;
