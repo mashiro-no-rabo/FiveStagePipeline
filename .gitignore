@@ -50,6 +50,7 @@ Desktop.ini
 *_summary.xml
 *_usage.xml
 *_xst.xrpt
+*.xise
 
 # project-wide generated files
 *.gise
