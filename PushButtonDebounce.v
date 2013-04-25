@@ -19,20 +19,20 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module PushButtonDebounce(
-	input clock,
-	input RawButton,
-	output reg DebouncedButton
+    input clock,
+    input RawButton,
+    output reg DebouncedButton
     );
 
-	reg [3:0] Delay;
+    reg [3:0] Delay;
 
-	always @ (posedge clock) begin
-		Delay = Delay << 1;
-		Delay[0] = RawButton;
-		if (Delay == 0)
-			DebouncedButton = 0;
-		if (Delay == 15)
-			DebouncedButton = 1;
-	end
+    always @ (posedge clock) begin
+        Delay = Delay << 1;
+        Delay[0] = RawButton;
+        if (Delay == 0)
+            DebouncedButton = 0;
+        if (Delay == 15)
+            DebouncedButton = 1;
+    end
 
 endmodule

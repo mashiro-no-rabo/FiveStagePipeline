@@ -19,33 +19,33 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module PipelineReg_IFID(
-	input wire clock,
-	input wire reset,
-	
-	input wire [31:0] FromIF_Inst,
-	input wire [31:0] FromIF_NewPC,
-	input wire [3:0]  FromIF_InstNum,
-	input wire [3:0]  FromIF_InstType,
-	
-	output reg [31:0] ToID_Inst,
-	output reg [31:0] ToID_NewPC,
-	output reg [3:0]  ToID_InstNum,
-	output reg [3:0]  ToID_InstType
+    input wire clock,
+    input wire reset,
+    
+    input wire [31:0] FromIF_Inst,
+    input wire [31:0] FromIF_NewPC,
+    input wire [3:0]  FromIF_InstNum,
+    input wire [3:0]  FromIF_InstType,
+    
+    output reg [31:0] ToID_Inst,
+    output reg [31:0] ToID_NewPC,
+    output reg [3:0]  ToID_InstNum,
+    output reg [3:0]  ToID_InstType
     );
 
-	always @ (posedge clock or posedge reset) begin
-		if (reset == 1) begin
-			ToID_Inst <= 32'b0;
-			ToID_NewPC <= 32'b0;
-			ToID_InstNum <= 4'b0;
-			ToID_InstType <= 4'b0;
-		end
-		else begin
-			ToID_Inst <= FromIF_Inst;
-			ToID_NewPC <= FromIF_NewPC;
-			ToID_InstNum <= FromIF_InstNum;
-			ToID_InstType <= FromIF_InstType;
-		end
-	end
+    always @ (posedge clock or posedge reset) begin
+        if (reset == 1) begin
+            ToID_Inst <= 32'b0;
+            ToID_NewPC <= 32'b0;
+            ToID_InstNum <= 4'b0;
+            ToID_InstType <= 4'b0;
+        end
+        else begin
+            ToID_Inst <= FromIF_Inst;
+            ToID_NewPC <= FromIF_NewPC;
+            ToID_InstNum <= FromIF_InstNum;
+            ToID_InstType <= FromIF_InstType;
+        end
+    end
 
 endmodule

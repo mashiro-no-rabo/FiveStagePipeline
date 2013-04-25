@@ -19,19 +19,19 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module Clock(
-	input RawClock,
-	input [31:0] ClockScale,
-	output reg clock
+    input RawClock,
+    input [31:0] ClockScale,
+    output reg clock
     );
 
-	reg [31:0] clkq = 0;
-	
-	always @ (posedge RawClock) begin
-		clkq = clkq + 1;
-		if (clkq >= ClockScale) begin
-			clock = ~clock;
-			clkq = 0;
-		end
-	end
+    reg [31:0] clkq = 0;
+    
+    always @ (posedge RawClock) begin
+        clkq = clkq + 1;
+        if (clkq >= ClockScale) begin
+            clock = ~clock;
+            clkq = 0;
+        end
+    end
 
 endmodule
