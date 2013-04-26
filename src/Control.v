@@ -38,7 +38,7 @@ module Control(
     output wire CS_RegWrite,
     output wire CS_MemToReg,
     output wire CS_MemWrite,
-    output reg [3:0] CS_ALUOP,
+    output reg [5:0] CS_ALUOP,
     output wire CS_Shift,
     output wire CS_UseImm
     
@@ -71,36 +71,29 @@ module Control(
             `OP_ORI: begin
                 CS_ALUOP <= `ALU_OR;
             end
-            `OP_ALUOP: begin
+            `OP_SPECIAL: begin
                 case (Inst_func(PR_IDEX_Inst))
-                    `FUNC_ADD: begin
+                    `SPECIAL_FUNC_ADD: begin
                         CS_ALUOP <= `ALU_ADD;
                     end
+                    `SPECIAL_FUNC_AND: begin
+                        CS_ALUOP <= `ALU_AND;
+                    end
+                    `SPECIAL_FUNC_NOR: begin
+                        CS_ALUOP <= `ALU_NOR;
+                    end
+                    `SPECIAL_FUNC_OR: begin
+                        CS_ALUOP <= `ALU_OR;
+                    end
+                    `SPECIAL_FUNC_SLL: begin
+                        CS_ALUOP <= `ALU_SLL;
+                    end
+                    
                     `FUNC_SUB: begin
                         CS_ALUOP <= `ALU_SUB;
                     end
-                    `FUNC_AND: begin
-                        CS_ALUOP <= `ALU_AND;
-                    end
-                    `FUNC_OR: begin
-                        CS_ALUOP <= `ALU_OR;
-                    end
-                    `FUNC_NOR: begin
-                        CS_ALUOP <= `ALU_NOR;
-                    end
-                    `FUNC_SLT: begin
-                        CS_ALUOP <= `ALU_SLT;
-                    end
-                    `FUNC_SLL: begin
-                        CS_ALUOP <= `ALU_SLL;
-                    end
-                    `FUNC_SRL: begin
-                        CS_ALUOP <= `ALU_SRL;
-                    end
-                    `FUNC_SRA: begin
-                        CS_ALUOP <= `ALU_SRA;
-                    end
                     default: begin
+                        CS_ALUOP <= `ALU_SLL;
                     end
                 endcase
             end
