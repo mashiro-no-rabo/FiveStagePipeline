@@ -88,9 +88,20 @@ module Control(
                     `SPECIAL_FUNC_SLL: begin
                         CS_ALUOP <= `ALU_SLL;
                     end
-                    
-                    `FUNC_SUB: begin
+                    `SPECIAL_FUNC_SLT: begin
+                        CS_ALUOP <= `ALU_SLT;
+                    end
+                    `SPECIAL_FUNC_SRA: begin
+                        CS_ALUOP <= `ALU_SRA;
+                    end
+                    `SPECIAL_FUNC_SRL: begin
+                        CS_ALUOP <= `ALU_SRL;
+                    end
+                    `SPECIAL_FUNC_SUB: begin
                         CS_ALUOP <= `ALU_SUB;
+                    end
+                    `SPECIAL_FUNC_XOR: begin
+                        CS_ALUOP <= `ALU_XOR
                     end
                     default: begin
                         CS_ALUOP <= `ALU_SLL;
@@ -98,6 +109,7 @@ module Control(
                 endcase
             end
             default: begin
+                CS_ALUOP <= `ALU_SLL;
             end
         endcase
      end
