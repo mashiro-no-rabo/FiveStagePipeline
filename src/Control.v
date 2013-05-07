@@ -31,16 +31,16 @@ module Control(
     input wire [31:0] PR_EXMEM_Inst,
     input wire [31:0] PR_MEMWB_Inst,
     
-    output wire CS_Branch,
-    output wire CS_CanOverflow,
-    output wire CS_UseRT,
-    output wire CS_NeedSignExtend,
-    output wire CS_RegWrite,
-    output wire CS_MemToReg,
-    output wire CS_MemWrite,
+    output reg CS_Branch,
+    output reg CS_CanOverflow,
+    output reg CS_UseRT,
+    output reg CS_NeedSignExtend,
+    output reg CS_RegWrite,
+    output reg CS_MemToReg,
+    output reg CS_MemWrite,
     output reg [5:0] CS_ALUOP,
-    output wire CS_Shift,
-    output wire CS_UseImm
+    output reg CS_Shift,
+    output reg CS_UseImm
     
     );
     

@@ -18,8 +18,12 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
+
+`include "includes/ALUOP.vh"
+
 module Stage_EX(
     input wire [3:0] CS_ALUOP,
+    input wire CS_UseImm,
     
     input wire [31:0] BeginStageEX_Inst,
     input wire [31:0] BeginStageEX_NewPC,
@@ -37,11 +41,24 @@ module Stage_EX(
     
     );
     
+    wire [31:0] ALUDataA, ALUDataB;
+    
+    assign ALUDataA = BeginStageEX_RegDataA;
+    assign ALUDataB = (CS_UseImm) ? BeginStageEX_Imm : BeginStageEX_RegDataB;
+    assign EndStageEX_Cond = (ALUDataA == 0) ? 1 : 0;
+    
     ALU ALU(
-        .A(BeginStageEX_RegDataA),
-        .B(),
+        .A(ALUDataA),
+        .B(ALUDataB),
         .ALUOP(CS_ALUOP),
         .result(EndStageEX_ALUOutput)
+    );
+    
+    ALU ALU_cond(
+        .A(BeginStageEX_RegDataA),
+        .B(BeginStageEX_RegDataB),
+        .ALUOP(`ALU_SUB),
+        .result(EndStageEX_Cond)
     );
     
 endmodule
