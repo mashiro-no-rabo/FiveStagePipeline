@@ -2,9 +2,9 @@
 // Company:        Team.TeaWhen
 // Engineer:       AquarHEAD L.
 // 
-// Create Date:    21:27:58 04/25/2013 
+// Create Date:    21:34:50 05/07/2013 
 // Design Name: 
-// Header Name:    ALUOP 
+// Header Name:    Decode 
 // Project Name:   Five Stage Pipeline CPU
 // Target Devices: Spartan3E Starter Kit
 // Tool versions:  Xilinx ISE 14.1
@@ -18,17 +18,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-// ALU Encoding
-`define ALU_ADD    6'b100000
-`define ALU_AND    6'b100100
-`define ALU_NOR    6'b100111
-`define ALU_OR     6'b100101
-`define ALU_SLL    6'b000000
-`define ALU_SLT    6'b101010
-`define ALU_SRA    6'b000011
-`define ALU_SRL    6'b000010
-`define ALU_SUB    6'b100010
-`define ALU_XOR    6'b100110
-
-// some "unsigned" version should use 
-// the same encoding as "signed" version instructions
+`define Inst_opcode(Inst) Inst[31:26]
+`define Inst_rs(Inst) Inst[25:21]
+`define Inst_rt(Inst) Inst[20:16]
+`define Inst_rd(Inst) Inst[15:11]
+`define Inst_func(Inst) Inst[5:0]
