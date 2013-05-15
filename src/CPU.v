@@ -29,6 +29,8 @@ module CPU(
     output wire [31:0] RegDispData
     );
     
+    // it should have control(for bypass and stall detect) and datapath
+    
     // Wire up registers here to support double bump
     Registers Registers(
         .clock(clock),
