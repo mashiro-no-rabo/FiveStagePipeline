@@ -37,7 +37,7 @@ module Stage_EX(
     output wire [31:0] EndStageEX_RegDataB,
     output wire [31:0] EndStageEX_Imm,
     output wire [31:0] EndStageEX_ALUOutput,
-    output wire EndStageEX_Cond
+    output wire EndStageEX_Condition
     
     );
     
@@ -45,7 +45,6 @@ module Stage_EX(
     
     assign ALUDataA = BeginStageEX_RegDataA;
     assign ALUDataB = (CS_UseImm) ? BeginStageEX_Imm : BeginStageEX_RegDataB;
-    assign EndStageEX_Cond = (ALUDataA == 0) ? 1 : 0;
     
     ALU ALU(
         .A(ALUDataA),
@@ -58,7 +57,7 @@ module Stage_EX(
         .A(BeginStageEX_RegDataA),
         .B(BeginStageEX_RegDataB),
         .ALUOP(`ALU_SUB),
-        .result(EndStageEX_Cond)
+        .result(EndStageEX_Condition)
     );
     
 endmodule

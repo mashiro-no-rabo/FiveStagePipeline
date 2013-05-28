@@ -49,13 +49,8 @@ module Stage_ID(
     
     assign EndStageID_RegDataA = RegData_rs;
     assign EndStageID_RegDataB = RegData_rt;
-    assign EndStageID_Imm = {{16{BeginStageID_Inst[15]}}, BeginStageID_Inst[15:0]};
-    
-    
-    
-    
-    
-    
+    assign EndStageID_Imm = CS_NeedSignExtend ? {{16{BeginStageID_Inst[15]}}, BeginStageID_Inst[15:0]} : {16'b0, BeginStageID_Inst[15:0]};
+
     output reg CS_Branch,
     output reg CS_CanOverflow,
     output reg CS_UseRT,
