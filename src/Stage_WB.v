@@ -19,6 +19,17 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module Stage_WB(
+    input wire clock;
+    input wire reset;
+    
+    input wire [31:0] BeginStageWB_Inst,
+    input wire [31:0] BeginStageWB_NewPC,
+    input wire [31:0] BeginStageWB_RegDataA,
+    input wire [31:0] BeginStageWB_RegDataB,
+    input wire [31:0] BeginStageWB_Imm,
+    input wire [31:0] BeginStageWB_ALUOutput,
+    input wire [31:0] BeginStageWB_MemData,
+
     );
 
 

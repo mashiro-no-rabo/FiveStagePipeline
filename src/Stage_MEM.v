@@ -23,6 +23,7 @@ module Stage_MEM(
     input wire reset,
     
     input wire CS_Branch,
+    input wire CS_MemWrite,
     
     input wire [31:0] BeginStageMEM_Inst,
     input wire [31:0] BeginStageMEM_NewPC,
@@ -38,9 +39,9 @@ module Stage_MEM(
     output wire [31:0] EndStageMEM_RegDataB,
     output wire [31:0] EndStageMEM_Imm,
     output wire [31:0] EndStageMEM_ALUOutput,
+    output wire [31:0] EndStageMEM_MemData,
     );
     
     assign EndStageMEM_NewPC = (CS_Branch && BeginStageMEM_Condition) ? BeginStageMEM_ALUOutput : BeginStageMEM_NewPC;
-
 
 endmodule

@@ -21,7 +21,7 @@
 module DataPath(
     );
 
-// Wire up registers here to support double bump
+    // Wire registers here and double bump
     Registers Registers(
         .clock(clock),
         .reset(reset),
@@ -36,7 +36,7 @@ module DataPath(
         .ddisp(RegDispData)
     );
     
-    // Wire up stages and pipeline registers
+    // Wire stages and pipeline registers
     Stage_IF Stage_IF(
         .clock(clock),
         .reset(reset),
@@ -49,6 +49,10 @@ module DataPath(
         .EndStageIF_InstNum(FromIF_InstNum),
         .EndStageIF_InstType(FromIF_InstType)
     );
+    
+    // Wire registers not changing directly
+    wire [3:0] StageID_InstNum;
+    wire [3:0] StageID_InstType;
     
     PipelineReg_IFID PipelineReg_IFID(
         .clock(clock),
@@ -64,10 +68,6 @@ module DataPath(
         .ToID_InstNum(StageID_InstNum),
         .ToID_InstType(StageID_InstType)
     );
-    
-    // Wire registers not changing directly
-    wire [3:0] StageID_InstNum;
-    wire [3:0] StageID_InstType;
     
     Stage_ID Stage_ID(
         .clock(clock),
@@ -86,6 +86,9 @@ module DataPath(
         .EndStageID_RegDataB(FromID_RegDataB),
         .EndStageID_Imm(FromID_Imm)
     );
+    
+    wire [3:0] StageEX_InstNum;
+    wire [3:0] StageEX_InstType;
     
     PipelineReg_IDEX PipelineReg_IDEX(
         .clock(clock),
@@ -108,9 +111,6 @@ module DataPath(
         .ToEX_InstType(StageEX_InstType)
     );
     
-    wire [3:0] StageEX_InstNum;
-    wire [3:0] StageEX_InstType;
-    
     Stage_EX Stage_EX(
         .BeginStageEX_Inst(ToEX_Inst),
         .BeginStageEX_NewPC(ToEX_NewPC),
@@ -124,8 +124,11 @@ module DataPath(
         .EndStageEX_RegDataB(FromEX_RegDataB),
         .EndStageEX_Imm(FromEX_Imm),
         .EndStageEX_ALUOutput(FromEX_ALUOutput),
-        .EndStageEX_Cond(FromEX_Cond)
+        .EndStageEX_Condition(FromEX_Condition)
     );
+    
+    wire [3:0] StageMEM_InstNum;
+    wire [3:0] StageMEM_InstType;
     
     PipelineReg_EXMEM PipelineReg_EXMEM(
         .clock(clock),
@@ -137,7 +140,9 @@ module DataPath(
         .FromEX_RegDataB(FromEX_RegDataB),
         .FromEX_Imm(FromEX_Imm),
         .FromEX_ALUOutput(FromEX_ALUOutput),
-        .FromEX_Cond(FromEX_Cond),
+        .FromEX_Condition(FromEX_Condition),
+        .FromEX_InstNum(StageEX_InstNum),
+        .FromEX_InstType(StageEX_InstType),
         
         .ToMEM_Inst(ToMEM_Inst),
         .ToMEM_NewPC(ToMEM_NewPC),
@@ -145,7 +150,9 @@ module DataPath(
         .ToMEM_RegDataB(ToMEM_RegDataB),
         .ToMEM_Imm(ToMEM_Imm),
         .ToMEM_ALUOutput(ToMEM_ALUOutput),
-        .ToMEM_Cond(ToMEM_Cond)
+        .ToMEM_Condition(ToMEM_Cond),
+        .ToMEM_InstNum(StageMEM_InstNum),
+        .ToMEM_InstType(StageMEM_InstType),
     );
     
     Stage_MEM Stage_MEM(

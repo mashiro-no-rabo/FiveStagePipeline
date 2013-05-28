@@ -28,6 +28,7 @@ module PipelineReg_MEMWB(
     input wire [31:0] FromMEM_RegDataB,
     input wire [31:0] FromMEM_Imm,
     input wire [31:0] FromMEM_ALUOutput,
+    input wire [31:0] FromMEM_MemData,
     input wire [3:0] FromMEM_InstNum,
     input wire [3:0] FromMEM_InstType,
     
@@ -37,6 +38,7 @@ module PipelineReg_MEMWB(
     output reg [31:0] ToWB_RegDataB,
     output reg [31:0] ToWB_Imm,
     output reg [31:0] ToWB_ALUOutput,
+    output reg [31:0] ToWB_MemData,
     output reg [3:0] ToWB_InstNum,
     output reg [3:0] ToWB_InstType
     );
@@ -48,6 +50,7 @@ module PipelineReg_MEMWB(
             ToWB_RegDataA <= 32'b0;
             ToWB_RegDataB <= 32'b0;
             ToWB_Imm <= 32'b0;
+            ToWB_MemData <= 32'b0;
             ToWB_InstNum <= 4'b0;
             ToWB_InstType <= 4'b0;
         end
@@ -58,7 +61,7 @@ module PipelineReg_MEMWB(
             ToWB_RegDataB <= FromMEM_RegDataB;
             ToWB_Imm <= FromMEM_Imm;
             ToWB_ALUOutput <= FromMEM_ALUOutput;
-            ToWB_Condition <= FromMEM_Condition;
+            ToWB_MemData <= FromMEM_MemData;
             ToWB_InstNum <= FromMEM_InstNum;
             ToWB_InstType <= FromMEM_InstType;
         end
